@@ -19,6 +19,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return Streamable.of(productRepository.findAll()).stream()
+                .filter(entity -> entity.getQuantity() > 0)
                 .map(entity -> {
                     var product = new Product(entity.getId());
                     product.setQuantity(entity.getQuantity());
